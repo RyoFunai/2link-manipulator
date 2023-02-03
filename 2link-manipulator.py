@@ -12,12 +12,16 @@ def ik(L, p2):
   x, y = p2
   l1, l2 = L
   d = math.sqrt((x*x) + (y*y))
-  if x<0:
-    th2 = math.pi - math.acos(((l1*l1) + (l2*l2) - ( d * d)) / (2*l1*l2))
-    th1 = math.atan2(y , x) - math.acos(((l1*l1) + (d * d) - (l2*l2)) / (2*l1*d))
+  if -1 < (((l1*l1) + (l2*l2) - ( d * d)) / (2*l1*l2)) < 1:
+    if x<0:
+      th2 = math.pi - math.acos(((l1*l1) + (l2*l2) - ( d * d)) / (2*l1*l2))
+      th1 = math.atan2(y , x) - math.acos(((l1*l1) + (d * d) - (l2*l2)) / (2*l1*d))
+    else:
+      th2 = math.pi + math.acos(((l1*l1) + (l2*l2) - ( d * d)) / (2*l1*l2))
+      th1 = math.atan2(y , x) + math.acos(((l1*l1) + (d * d) - (l2*l2)) / (2*l1*d))
   else:
-    th2 = math.pi + math.acos(((l1*l1) + (l2*l2) - ( d * d)) / (2*l1*l2))
-    th1 = math.atan2(y , x) + math.acos(((l1*l1) + (d * d) - (l2*l2)) / (2*l1*d))
+    th1=0
+    th2=0
   return [th1, th2]
 
 # 順運動学の計算
@@ -57,7 +61,7 @@ def set_graph(graph):
 
 def main():
   # リンク1, 2の長さ
-  L = [0.5, 0.7]
+  L = [0.22, 0.32]
   p2 = [0.5, 0.5]
   # 第1, 2の関節角度
   #th = np.radians([90, 0])
